@@ -1,0 +1,12 @@
+{
+  "name": "koalityio/pluginsymfony3",
+  "description": "Server health checks for Symfony3 projects.",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "KoalityIo\\Plugins\\Symfony3\\": "src/"
+    }
+  }
+}
+
