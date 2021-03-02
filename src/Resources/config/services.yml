@@ -1,4 +1,15 @@
 services:
-#    koalityio_symfony3.example:
-#        class: Koalityio\Symfony3Bundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    #koalityio_server_check_space_used:
+    #    class: Leankoala\HealthFoundation\Check\Device\SpaceUsedCheck
+    #    calls:
+    #        -   method: init
+    #            arguments:
+    #                - 90
+
+    #koalityio_healthfoundation:
+    #    class: Leankoala\HealthFoundation\HealthFoundation
+    #    calls:
+    #        -   method: registerCheck
+    #            arguments:
+    #                - '@koalityio_server_check_space_used'

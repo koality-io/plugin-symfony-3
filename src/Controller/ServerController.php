@@ -2,7 +2,6 @@
 
 namespace Koalityio\Symfony3Bundle\Controller;
 
-use Leankoala\HealthFoundation\Check\Device\SpaceUsedCheck;
 use Leankoala\HealthFoundation\HealthFoundation;
 use Leankoala\HealthFoundation\Result\Format\Koality\KoalityFormat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,6 +17,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class ServerController extends Controller
 {
+    const SERVICE_NAME = 'koalityio_healthfoundation';
+
     /**
      * @param string $secret
      *
@@ -27,20 +28,17 @@ class ServerController extends Controller
     {
         $this->assertIsAllowed($secret);
 
-        $healthFoundation = new HealthFoundation();
-
-        $spaceUsedChecked = new SpaceUsedCheck();
-        $spaceUsedChecked->init(80, '/');
-
-        $healthFoundation->registerCheck($spaceUsedChecked);
+        if ($this->has(self::SERVICE_NAME)) {
+            /** @var HealthFoundation $healthFoundation */
+            $healthFoundation = $this->get(self::SERVICE_NAME);
+        } else {
+            $healthFoundation = new HealthFoundation();
+        }
 
         $result = $healthFoundation->runHealthCheck();
 
         $formatter = new KoalityFormat();
-
-        $resultArray = $formatter->handle($result, false);
-
-        $response = new JsonResponse($resultArray);
+        $response = new JsonResponse($formatter->handle($result, false));
 
         $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
 
