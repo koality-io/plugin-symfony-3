@@ -3,10 +3,12 @@
   "description": "Server health checks for Symfony3 projects.",
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "require": {
+    "leankoala/healthfoundation": "dev-master"
+  },
   "autoload": {
     "psr-4": {
-      "KoalityIo\\Plugins\\Symfony3\\": "src/"
+      "Koalityio\\Symfony3Bundle\\": "src/"
     }
   }
 }
-

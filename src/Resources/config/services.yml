@@ -1,0 +1,4 @@
+services:
+#    koalityio_symfony3.example:
+#        class: Koalityio\Symfony3Bundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

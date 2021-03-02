@@ -1,0 +1,3 @@
+koalityio_symfony3_homepage:
+    path:     /
+    defaults: { _controller: KoalityioSymfony3Bundle:Default:index }
