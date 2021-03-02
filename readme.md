@@ -1,5 +1,15 @@
 # koality.io Server Health Bundle
 
+## Todos
+
+- Use config.yml file for configuration
+- Install docs
+- Checks
+  - CPU usage
+  - Load
+  - MySQL running
+  - Symfony
+    - Cache dir writable
 
 ## Configuration
 ```yaml
