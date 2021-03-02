@@ -2,7 +2,9 @@
 
 namespace Koalityio\Symfony3Bundle\Controller;
 
+use Leankoala\HealthFoundation\Check\Device\SpaceUsedCheck;
 use Leankoala\HealthFoundation\HealthFoundation;
+use Leankoala\HealthFoundation\Result\Format\Koality\KoalityFormat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -23,11 +25,30 @@ class ServerController extends Controller
      */
     public function indexAction($secret)
     {
-        // $expectedApiKey = $this->getParameter('api_key');
-        // var_dump($expectedApiKey);
+        $this->assertIsAllowed($secret);
+
         $healthFoundation = new HealthFoundation();
 
+        $spaceUsedChecked = new SpaceUsedCheck();
+        $spaceUsedChecked->init(80, '/');
 
-        return new JsonResponse(['status' => 'pass']);
+        $healthFoundation->registerCheck($spaceUsedChecked);
+
+        $result = $healthFoundation->runHealthCheck();
+
+        $formatter = new KoalityFormat();
+
+        $resultArray = $formatter->handle($result, false);
+
+        $response = new JsonResponse($resultArray);
+
+        $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
+
+        return $response;
+    }
+
+    private function assertIsAllowed($secret)
+    {
+
     }
 }
